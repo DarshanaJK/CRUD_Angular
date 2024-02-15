@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 
-const BASIC_URL = ["http://localhost:9000/"]
+const BASIC_URL = ["http://localhost:9000"]
 
 @Injectable({
   providedIn: 'root'
@@ -14,11 +14,15 @@ export class CustomerService {
   ) { }
 
   postCustomer(customer: any): Observable<any> {
-    return this.http.post(BASIC_URL + "api/customer", customer);
+    return this.http.post(BASIC_URL + "/api/customer", customer);
   }
 
   getAllCustomer(): Observable<any>{
-    return this.http.get(BASIC_URL + "api/customers");
+    return this.http.get(BASIC_URL + "/api/customers");
+  }
+
+  getCustomerById(id: number):Observable<any>{
+    return this.http.get(BASIC_URL + `/api/customer/${id}`);
   }
 
 }

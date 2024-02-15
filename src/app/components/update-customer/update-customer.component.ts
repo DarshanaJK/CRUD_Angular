@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
+import {CustomerService} from "../../service/customer.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-update-customer',
@@ -6,5 +9,28 @@ import { Component } from '@angular/core';
   styleUrls: ['./update-customer.component.css']
 })
 export class UpdateCustomerComponent {
+
+  updateCustomerForm!: FormGroup;
+  id: number = this.activatedRoute.snapshot.params["id"];
+
+  constructor(private activatedRoute: ActivatedRoute,
+              private service: CustomerService,
+              private fb: FormBuilder) { }
+
+  ngOnInit(){
+    this.updateCustomerForm = this.fb.group({
+      name: [null, [Validators.required]],
+      phone: [null, [Validators.required]],
+      email: [null, [Validators.required, Validators.email]]
+    })
+    this.getCustomerById();
+  }
+
+  getCustomerById(){
+    this.service.getCustomerById(this.id).subscribe((res) => {
+      console.log(res);
+      this.updateCustomerForm.patchValue(res);
+    })
+  }
 
 }
