@@ -6,17 +6,22 @@ import { AppComponent } from './app.component';
 import { PostCustomerComponent } from './components/post-customer/post-customer.component';
 import { GetAllCustomersComponent } from './components/get-all-customers/get-all-customers.component';
 import { UpdateCustomerComponent } from './components/update-customer/update-customer.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
     AppComponent,
     PostCustomerComponent,
     GetAllCustomersComponent,
-    UpdateCustomerComponent
+    UpdateCustomerComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
