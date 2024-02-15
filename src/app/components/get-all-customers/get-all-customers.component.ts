@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {CustomerService} from "../../service/customer.service";
 
 @Component({
   selector: 'app-get-all-customers',
@@ -7,4 +8,18 @@ import { Component } from '@angular/core';
 })
 export class GetAllCustomersComponent {
 
+  customers: any[] = [];
+
+  constructor(private customerService: CustomerService) { }
+
+  ngOnInit(){
+    this.getAllCustomer();
+  }
+
+  getAllCustomer(){
+    this.customerService.getAllCustomer().subscribe((res) => {
+      console.log(res);
+      this.customers = res;
+    })
+  }
 }
