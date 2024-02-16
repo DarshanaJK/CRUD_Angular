@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {CustomerService} from "../../service/customer.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
@@ -15,7 +15,8 @@ export class UpdateCustomerComponent {
 
   constructor(private activatedRoute: ActivatedRoute,
               private service: CustomerService,
-              private fb: FormBuilder) { }
+              private fb: FormBuilder,
+              private router: Router) { }
 
   ngOnInit(){
     this.updateCustomerForm = this.fb.group({
@@ -30,6 +31,15 @@ export class UpdateCustomerComponent {
     this.service.getCustomerById(this.id).subscribe((res) => {
       console.log(res);
       this.updateCustomerForm.patchValue(res);
+    })
+  }
+
+  updateCustomer(){
+    this.service.updateCustomer(this.id, this.updateCustomerForm.value).subscribe((res) => {
+      console.log(res);
+      if (res.id != null){
+        this.router.navigateByUrl("");
+      }
     })
   }
 
